@@ -59,6 +59,10 @@ router.get('/:imageName', function (req, res) { return __awaiter(void 0, void 0,
                 _a = req.query, width = _a.width, height = _a.height;
                 console.log(width, height);
                 console.log(typeof (width));
+                if ((typeof width === "string" && isNaN(parseInt(width, 10))) || (typeof height === "string" && isNaN(parseInt(height, 10)))) {
+                    console.log("Invalid width & height");
+                    return [2 /*return*/, res.status(400).send('Invalid width & height')];
+                }
                 dir = '../images/thumbnails';
                 imagePath = path_1.default.join(process.cwd(), "images/source/".concat(req.params.imageName, ".jpg"));
                 resizedImagePath = path_1.default.join(process.cwd(), "images/thumbnails/".concat(req.params.imageName, "_w").concat(width, "_h").concat(height, ".jpg"));
@@ -82,12 +86,12 @@ router.get('/:imageName', function (req, res) { return __awaiter(void 0, void 0,
             case 1:
                 useResize = _b.sent();
                 if (useResize) {
-                    return [2 /*return*/, res.status(200).sendFile(resizedImagePath)];
                     console.log("successful!");
+                    return [2 /*return*/, res.status(200).sendFile(resizedImagePath)];
                 }
                 else {
-                    return [2 /*return*/, res.status(404).send("Could not resize Image")];
                     console.log("can not resize");
+                    return [2 /*return*/, res.status(404).send("Could not resize Image")];
                 }
                 return [2 /*return*/];
         }

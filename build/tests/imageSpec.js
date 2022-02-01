@@ -39,18 +39,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var path_1 = __importDefault(require("path"));
+var fs_1 = __importDefault(require("fs"));
 var resize_1 = __importDefault(require("../resizeDir/resize"));
-// test resized image
-describe('Image can be resized', function () {
-    it('Image resizing should work', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var resizePath;
+//test resize function 
+describe('Test sharp resize functionality', function () {
+    it('Image can be resized', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var imageName, width, height, resizedImage, thumbDir;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, resize_1.default)("tom", 200, 200)];
+                case 0:
+                    imageName = 'simba';
+                    width = 200;
+                    height = 200;
+                    return [4 /*yield*/, (0, resize_1.default)(imageName, width, height)];
                 case 1:
-                    resizePath = _a.sent();
-                    expect(resizePath).toBeTrue();
-                    expect(resizePath).toEqual(expect(resizePath).toMatch(/tom_w200_h200.jpg$/));
+                    resizedImage = _a.sent();
+                    expect(resizedImage).toBeTrue();
+                    thumbDir = path_1.default.join(process.cwd(), "images/thumbnails/".concat(imageName, "_w").concat(width, "_h").concat(height, ".jpg"));
+                    expect(fs_1.default.existsSync(thumbDir)).toBeTruthy();
                     return [2 /*return*/];
             }
         });

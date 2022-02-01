@@ -54,20 +54,26 @@ var resize = function (imageName, width, height) { return __awaiter(void 0, void
         sharpResized = function () { return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, sharp_1.default)(imagePath)
-                            .resize(width, height)
-                            .toFile(resizedImagePath)
-                            .then(function (err) {
-                            if (err) {
-                                return false;
-                            }
-                            else {
-                                return true;
-                            }
+                    case 0: return [4 /*yield*/, new Promise(function (resolve, reject) {
+                            (0, sharp_1.default)(imagePath)
+                                .resize(width, height)
+                                .toFile(resizedImagePath, function (err) {
+                                if (err) {
+                                    return resolve(false);
+                                }
+                                else {
+                                    return resolve(true);
+                                }
+                            });
+                            // .then((err) => {
+                            //   if(err) {
+                            //     return false;
+                            //   }else {
+                            //     return true;
+                            //   }
+                            // });
                         })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         }); };
