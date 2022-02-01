@@ -17,6 +17,7 @@ router.get('/:imageName',async(req: express.Request, res: express.Response):Prom
     const {width, height} = req.query;
     console.log(width, height);
     console.log(typeof(width));
+    //validate width & height
     if ((typeof width === "string" && isNaN(parseInt(width, 10))) || (typeof height === "string" && isNaN(parseInt(height, 10)))) {
         console.log("Invalid width & height");  
         return res.status(400).send('Invalid width & height');
